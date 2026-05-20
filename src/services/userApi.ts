@@ -99,4 +99,6 @@ export const {
   useUnfollowUserMutation,
   useGetFollowersQuery,
   useGetFollowingQuery,
+  useLazyGetFollowersQuery,
+  useLazyGetFollowingQuery
 } = userApi;

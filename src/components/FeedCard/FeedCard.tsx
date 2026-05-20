@@ -32,9 +32,11 @@ interface FeedCardProps {
       avatar: string;
     };
   };
+  isShort?: boolean;
+  haveId?: boolean;
 }
 
-const FeedCard = ({ post }: FeedCardProps) => {
+const FeedCard = ({ post, isShort, haveId }: FeedCardProps) => {
   const router = useRouter();
   const [toggleLike] = useToggleLikeMutation();
   const [toggleFavorite] = useToggleFavoriteMutation();
@@ -71,6 +73,18 @@ const FeedCard = ({ post }: FeedCardProps) => {
     return showFullDescription ? text : text.slice(0, maxLength) + "...";
   };
 
+  if (isShort) {
+    return (
+      <Link href={`/post/${post.id}`} className="flex items-center gap-3">
+        <Image
+          post={post}
+          handleLike={handleLike}
+          isLiked={isLiked}
+          showProduct
+        />
+      </Link>
+    );
+  }
   return (
     <article className="h-full bg-white border-b border-gray-100 pb-2">
       {/* Header */}
@@ -79,6 +93,15 @@ const FeedCard = ({ post }: FeedCardProps) => {
           href={`/profile/${post.User.id}`}
           className="flex items-center gap-3"
         >
+          {haveId && (
+            <button
+              onClick={() => router.back()}
+              className="text-gray-600 text-3xl mr-2"
+            >
+              ←
+            </button>
+          )}
+
           <Avatar user={post.User} />
           <div>
             <p className="font-semibold text-sm text-gray-900">

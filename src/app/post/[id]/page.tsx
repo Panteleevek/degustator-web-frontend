@@ -27,7 +27,7 @@ const Main =  ({searchParams }: PageProps) =>  {
     }
   return (
         <>
-        <FeedCard post={currentPost}/>
+        <FeedCard post={currentPost} haveId={!!params?.id}/>
         <Navigation/>
         </>
     )

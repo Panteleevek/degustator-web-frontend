@@ -6,10 +6,14 @@ const Image = ({
   post,
   handleLike,
   isLiked,
+  showProduct,
+  showRating = true,
 }: {
   post: Post;
   handleLike: () => void;
   isLiked: boolean;
+  showProduct?: boolean;
+  showRating?: boolean;
 }) => {
   const lastTapRef = useRef<number>(0);
   const heartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -58,21 +62,31 @@ const Image = ({
       onDoubleClick={handleImageDoubleClick}
       onTouchStart={handleImageTouch}
     >
+      {showProduct && (
+        <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md rounded-full px-2 py-1">
+          <div className="flex items-center gap-1">
+            <span className="text-xs font-semibold text-white">
+              {post.product}
+            </span>
+          </div>
+        </div>
+      )}
+
       <img
         src={post.imageUrl}
         alt={post.title}
         className="w-full h-full object-cover"
       />
-
-      {/* Rating badge */}
-      <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md rounded-full px-2 py-1">
-        <div className="flex items-center gap-1">
-          <Star size={12} className="fill-yellow-400 text-yellow-400" />
-          <span className="text-xs font-semibold text-white">
-            {post.rating}/10
-          </span>
+      {showRating && (
+        <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md rounded-full px-2 py-1">
+          <div className="flex items-center gap-1">
+            <Star size={12} className="fill-yellow-400 text-yellow-400" />
+            <span className="text-xs font-semibold text-white">
+              {post.rating}/10
+            </span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

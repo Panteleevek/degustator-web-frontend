@@ -167,6 +167,7 @@ const Profile = ({ id }: { id?: string }) => {
         type={openModalFollowers}
         onClose={() => setOpenModalFollowers(null)}
         onReloadListUser={() => onReloadListUser()}
+        userId={currentUserProfile?.id}
       />
     </div>
   );
